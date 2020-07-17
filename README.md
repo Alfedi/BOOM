@@ -1,10 +1,10 @@
-# Bomasy
+# BOOM
 
-Bomasy is a simple application to manage your books in a database.
+BOOM is a simple application to manage your books in a database.
 
 ## How to use
 
-To start the server just download dependencies with `mix deps.get` and run the phoenix server with `mix phx.server`.
+To start the server just download dependencies with `mix deps.get`, create the database with `mix ecto.create` and run the phoenix server with `mix phx.server`.
 
 ## Endpoints
 
@@ -26,3 +26,6 @@ With the next JSON:
 	"edition": 1
 }
 ```
+
+### Very special thanks
+To @samgh96 for suggesting such an incredible name and not letting me keep the awful one.
