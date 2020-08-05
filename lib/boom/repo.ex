@@ -1,5 +1,5 @@
-defmodule Bomasy.Repo do
+defmodule Boom.Repo do
   use Ecto.Repo,
-    otp_app: :bomasy,
+    otp_app: :boom,
     adapter: Ecto.Adapters.Postgres
 end

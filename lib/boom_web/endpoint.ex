@@ -1,16 +1,16 @@
-defmodule BomasyWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :bomasy
+defmodule BoomWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :boom
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_bomasy_key",
+    key: "_boom_key",
     signing_salt: "CfxvRHXY"
   ]
 
-  socket "/socket", BomasyWeb.UserSocket,
+  socket "/socket", BoomWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -20,7 +20,7 @@ defmodule BomasyWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :bomasy,
+    from: :boom,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -41,5 +41,5 @@ defmodule BomasyWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug BomasyWeb.Router
+  plug BoomWeb.Router
 end

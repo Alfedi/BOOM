@@ -1,6 +1,6 @@
-defmodule Bomasy do
+defmodule Boom do
   @moduledoc """
-  Bomasy keeps the contexts that define your domain
+  Boom keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

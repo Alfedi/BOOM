@@ -1,11 +1,11 @@
-defmodule BomasyWeb.Router do
-  use BomasyWeb, :router
+defmodule BoomWeb.Router do
+  use BoomWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api/books", BomasyWeb do
+  scope "/api/books", BoomWeb do
     pipe_through :api
 
     get("/:id", BookController, :get_book)

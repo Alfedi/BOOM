@@ -1,5 +1,5 @@
-defmodule BomasyWeb.ErrorView do
-  use BomasyWeb, :view
+defmodule BoomWeb.ErrorView do
+  use BoomWeb, :view
 
   def render("400.json", %{err_msg: err_msg}) do
     %{errors: %{detail: err_msg}}

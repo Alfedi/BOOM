@@ -1,4 +1,4 @@
-defmodule Bomasy.Repo.Migrations.CreateBooks do
+defmodule Boom.Repo.Migrations.CreateBooks do
   use Ecto.Migration
 
   def change do

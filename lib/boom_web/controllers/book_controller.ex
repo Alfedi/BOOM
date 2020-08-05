@@ -1,11 +1,11 @@
-defmodule BomasyWeb.BookController do
-  use BomasyWeb, :controller
+defmodule BoomWeb.BookController do
+  use BoomWeb, :controller
 
   require Logger
 
-  alias BomasyWeb.ErrorView
-  alias BomasyWeb.BookView
-  alias Bomasy.Book
+  alias BoomWeb.ErrorView
+  alias BoomWeb.BookView
+  alias Boom.Book
 
   def add_book(conn, %{
         "ISBN" => isbn,

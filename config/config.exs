@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :bomasy,
-  ecto_repos: [Bomasy.Repo]
+config :boom,
+  ecto_repos: [Boom.Repo]
 
 # Configures the endpoint
-config :bomasy, BomasyWeb.Endpoint,
+config :boom, BoomWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "LL8dbpuptbUGutCwPr8DFYjpRPf6Aw7y+jEw51Qj2ceI9T2DinZwtVUfWspO/boB",
-  render_errors: [view: BomasyWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Bomasy.PubSub, adapter: Phoenix.PubSub.PG2],
+  render_errors: [view: BoomWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: Boom.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "v9h236Qy"]
 
 # Configures Elixir's Logger

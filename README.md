@@ -11,7 +11,7 @@ ArchLinux based systems:
 sudo pacman -S elixir
 sudo pacman -S postgresql
 ```
-Ubuntu based systems:
+Debian based systems:
 ```bash
 wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
 sudo apt-get update
@@ -24,7 +24,12 @@ sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
 ```
 
-Now that postgresql is installed start it with `systemctl start postgresql.service`, then download dependencies with `mix deps.get`, create the database with `mix ecto.create` and run the phoenix server with `mix phx.server`.
+Now that postgresql is installed start it with `systemctl start postgresql.service`.
+
+You will also need to install GNU Make.
+
+The first time you need to run `make install` to get everything updated.
+In order to start the server you need to run the `make start` command.
 
 ## Endpoints
 
@@ -42,10 +47,10 @@ With the next JSON:
 	"ISBN": 1234567890,
 	"title": "title",
 	"author": "author",
-	"publisher": "publisher",
 	"edition": 1
+	"publisher": "publisher"
 }
 ```
 
 ### Very special thanks
-To @samgh96 for suggesting such an incredible name and not letting me keep the awful one.
+To [@samgh96](https://github.com/samgh96) for suggesting such an incredible name and not letting me keep the awful one.

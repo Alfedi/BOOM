@@ -1,16 +1,16 @@
 use Mix.Config
 
 # Configure your database
-config :bomasy, Bomasy.Repo,
+config :boom, Boom.Repo,
   username: "postgres",
   password: "postgres",
-  database: "bomasy_test",
+  database: "boom_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :bomasy, BomasyWeb.Endpoint,
+config :boom, BoomWeb.Endpoint,
   http: [port: 4002],
   server: false
 

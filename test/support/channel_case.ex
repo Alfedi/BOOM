@@ -1,4 +1,4 @@
-defmodule BomasyWeb.ChannelCase do
+defmodule BoomWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule BomasyWeb.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use BomasyWeb.ChannelCase, async: true`, although
+  by setting `use BoomWeb.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -23,15 +23,15 @@ defmodule BomasyWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint BomasyWeb.Endpoint
+      @endpoint BoomWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bomasy.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Boom.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Bomasy.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Boom.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :bomasy, Bomasy.Repo,
+config :boom, Boom.Repo,
   username: "postgres",
   password: "postgres",
-  database: "bomasy_dev",
+  database: "boom_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :bomasy, Bomasy.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :bomasy, BomasyWeb.Endpoint,
+config :boom, BoomWeb.Endpoint,
   http: [port: 4000],
   debug_errors: false,
   code_reloader: true,

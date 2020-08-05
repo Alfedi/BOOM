@@ -1,12 +1,12 @@
-defmodule BomasyWeb do
+defmodule BoomWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use BomasyWeb, :controller
-      use BomasyWeb, :view
+      use BoomWeb, :controller
+      use BoomWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule BomasyWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: BomasyWeb
+      use Phoenix.Controller, namespace: BoomWeb
 
       import Plug.Conn
-      import BomasyWeb.Gettext
-      alias BomasyWeb.Router.Helpers, as: Routes
+      import BoomWeb.Gettext
+      alias BoomWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,14 +31,14 @@ defmodule BomasyWeb do
     quote do
       use Phoenix.View,
         root: "lib/bomasy_web/templates",
-        namespace: BomasyWeb
+        namespace: BoomWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      import BomasyWeb.ErrorHelpers
-      import BomasyWeb.Gettext
-      alias BomasyWeb.Router.Helpers, as: Routes
+      import BoomWeb.ErrorHelpers
+      import BoomWeb.Gettext
+      alias BoomWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -53,7 +53,7 @@ defmodule BomasyWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import BomasyWeb.Gettext
+      import BoomWeb.Gettext
     end
   end
 

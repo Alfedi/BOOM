@@ -1,4 +1,4 @@
-defmodule BomasyWeb.ErrorHelpers do
+defmodule BoomWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -25,9 +25,9 @@ defmodule BomasyWeb.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(BomasyWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(BoomWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(BomasyWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(BoomWeb.Gettext, "errors", msg, opts)
     end
   end
 end

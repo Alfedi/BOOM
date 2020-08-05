@@ -1,10 +1,10 @@
-defmodule Bomasy.BookTest do
-  use Bomasy.DataCase
+defmodule Boom.BookTest do
+  use Boom.DataCase
 
-  alias Bomasy.Book
+  alias Boom.Book
 
   describe "books" do
-    alias Bomasy.Book.Books
+    alias Boom.Book.Books
 
     @valid_attrs %{ISBN: 42, author: "some author", borrowed_by: "some borrowed_by", edition: 42, is_borrowed: true, publisher: "some publisher", title: "some title"}
     @update_attrs %{ISBN: 43, author: "some updated author", borrowed_by: "some updated borrowed_by", edition: 43, is_borrowed: false, publisher: "some updated publisher", title: "some updated title"}

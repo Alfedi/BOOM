@@ -1,4 +1,4 @@
-defmodule Bomasy.Models.Books do
+defmodule Boom.Models.Books do
   use Ecto.Schema
 
   schema "books" do
@@ -19,7 +19,7 @@ defmodule Bomasy.Models.Books do
   end
 
   def insert_book(book) do
-    case Bomasy.Repo.insert(book) do
+    case Boom.Repo.insert(book) do
       {:ok, _} = res_ok -> res_ok
       _ -> {:error, {:something_went_wrong, "Could not insert book"}}
     end

@@ -1,5 +1,5 @@
-defmodule Bomasy.Book do
-  alias Bomasy.Models.Books
+defmodule Boom.Book do
+  alias Boom.Models.Books
 
   def add_book(isbn, title, author, publisher, edition) do
     case get_book(isbn) do
@@ -19,7 +19,7 @@ defmodule Bomasy.Book do
 
   # Need a better way to do this
   def get_book(isbn) when is_integer(isbn) do
-    case Books |> Bomasy.Repo.get_by(ISBN: isbn) do
+    case Books |> Boom.Repo.get_by(ISBN: isbn) do
       nil ->
         {:error, {:error_not_found, "Book not found"}}
 
@@ -29,7 +29,7 @@ defmodule Bomasy.Book do
   end
 
   def get_book(title) when is_binary(title) do
-    case Books |> Bomasy.Repo.get_by(title: title) do
+    case Books |> Boom.Repo.get_by(title: title) do
       nil ->
         {:error, {:error_not_found, "Book not found"}}
 

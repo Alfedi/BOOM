@@ -1,5 +1,5 @@
-defmodule BomasyWeb.BookView do
-  use BomasyWeb, :view
+defmodule BoomWeb.BookView do
+  use BoomWeb, :view
 
   def render("book.json", %{book: book}) do
     book_json(book)
