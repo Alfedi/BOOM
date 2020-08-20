@@ -5,6 +5,7 @@ defmodule BoomWeb.BookController do
 
   alias BoomWeb.ErrorView
   alias BoomWeb.BookView
+  alias BoomWeb.BooksView
   alias Boom.Book
 
   def add_book(conn, %{
@@ -33,8 +34,9 @@ defmodule BoomWeb.BookController do
     end
   end
 
+  # Need a better way to guess if it's a ISBN or a title
   def get_book(conn, %{"id" => id}) do
-    # Need a better way to guess if it's a ISBN or a title
+    # ISBN
     case String.match?(Kernel.to_string(id), ~r/^(97(8|9))?\d{9}(\d|X)$/) do
       true ->
         case Book.get_book(String.to_integer(id)) do
@@ -48,11 +50,12 @@ defmodule BoomWeb.BookController do
             |> render(ErrorView, "404.json", %{err_msg: err_msg})
         end
 
+      # title
       false ->
         case Book.get_book(Kernel.to_string(id)) do
-          {:ok, book} ->
+          {:ok, book_list} ->
             conn
-            |> render(BookView, "book.json", %{book: book})
+            |> render(BooksView, "books.json", %{book_list: book_list})
 
           {:error, {_, err_msg}} ->
             conn
