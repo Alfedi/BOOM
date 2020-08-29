@@ -33,12 +33,16 @@ defmodule Boom.Book do
   def get_book(title) when is_binary(title) do
     query =
       from b in Boom.Models.Books,
+        # Simple regex for searching various books
         where: ilike(b.title, ^"#{title}%")
 
     stream = Boom.Repo.stream(query)
 
     # {:ok, [{book1}, {book2}]}
-    Boom.Repo.transaction(fn -> Enum.to_list(stream) end)
+    case Boom.Repo.transaction(fn -> Enum.to_list(stream) end) do
+      {_, []} -> {:error, {:error_not_found, "No matches found"}}
+      {_, list} -> {:ok, list}
+    end
   end
 
   # defp get_book_info(title) do
