@@ -65,16 +65,13 @@ defmodule BoomWeb.BookController do
     end
   end
 
-  # def get_book(conn, %{"title" => title}) do
-  #   case Book.get_book(title) do
-  #     {:ok, book} ->
-  #       conn
-  #       |> render(BookView, "book.json", %{book: book})
+  def get_books(conn, _) do
+    case Book.get_books() do
+      {:ok, book_list} ->
+        conn |> render(BooksView, "books.json", %{book_list: book_list})
 
-  #     {:error, {_, err_msg}} ->
-  #       conn
-  #       |> put_status(404)
-  #       |> render(ErrorView, "404.json", %{err_msg: err_msg})
-  #   end
-  # end
+      {:error, err_msg} ->
+        conn |> put_status(500) |> render(ErrorView, "500.json", %{err_msg: err_msg})
+    end
+  end
 end
