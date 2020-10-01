@@ -64,7 +64,7 @@ defmodule BoomWeb.BookController do
   # Utils
   defp parse_filters(params),
     do:
-      Map.take(params, ["title"])
+      Map.take(params, ["title", "author", "publisher"])
       |> Enum.reduce(%{}, fn {k, v}, acc -> Map.put(acc, String.to_atom(k), v) end)
 
   defp parse_limit(nil), do: nil
