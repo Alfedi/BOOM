@@ -65,13 +65,26 @@ defmodule BoomWeb.BookController do
     end
   end
 
-  def get_books(conn, _) do
-    case Book.get_books() do
-      {:ok, book_list} ->
-        conn |> render(BooksView, "books.json", %{book_list: book_list})
+  def get_books(conn, params) do
+    Logger.debug("params: #{inspect(params)}")
+    limit = parse_limit(params["limit"])
+
+    case Book.get_books(params["cursor"], limit) do
+      {:ok, book_list, cursors} ->
+        conn |> render(BooksView, "books.json", %{book_list: book_list, cursors: cursors})
 
       {:error, err_msg} ->
         conn |> put_status(500) |> render(ErrorView, "500.json", %{err_msg: err_msg})
+    end
+  end
+
+  # Utils
+  defp parse_limit(nil), do: nil
+
+  defp parse_limit(limit) do
+    case Integer.parse(limit) do
+      :error -> nil
+      {n, _} -> n
     end
   end
 end

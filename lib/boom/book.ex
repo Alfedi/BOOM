@@ -40,8 +40,12 @@ defmodule Boom.Book do
     {:ok, Boom.Repo.all(query)}
   end
 
-  def get_books() do
-    query = from(b in Boom.Models.Books)
-    {:ok, Boom.Repo.all(query)}
+  def get_books(cursor, limit \\ 2) do
+    query = from(b in Boom.Models.Books, order_by: b.inserted_at)
+
+    %{entries: entries, metadata: metadata} =
+      Boom.Repo.paginate(query, after: cursor, cursor_fields: [:inserted_at], limit: limit)
+
+    {:ok, entries, %{cursor_after: metadata.after, cursor_before: metadata.before}}
   end
 end

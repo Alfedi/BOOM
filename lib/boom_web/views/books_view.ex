@@ -1,8 +1,9 @@
 defmodule BoomWeb.BooksView do
   use BoomWeb, :view
 
-  def render("books.json", %{book_list: book_list}) do
-    book_list |> Enum.map(&book_json/1)
+  def render("books.json", %{book_list: book_list, cursors: cursors}) do
+    entries = book_list |> Enum.map(&book_json/1)
+    %{entries: entries, cursors: cursors}
   end
 
   @book_fields [:ISBN, :title, :author, :edition, :publisher]
