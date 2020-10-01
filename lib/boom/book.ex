@@ -48,9 +48,6 @@ defmodule Boom.Book do
         where(query, [book: book], ilike(field(book, ^k), ^"%#{v}%"))
       end)
 
-    require Logger
-    Logger.debug("query: #{inspect(query)}")
-
     %{entries: entries, metadata: metadata} =
       Boom.Repo.paginate(query, after: cursor, cursor_fields: [:inserted_at], limit: limit)
 
