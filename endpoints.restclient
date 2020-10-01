@@ -1,0 +1,35 @@
+:host = 127.0.0.1
+:port = 4000
+
+:common_headers = Content-Type: application/json
+
+# Create a book
+POST http://:host::port/api/books
+:common_headers
+{
+  "ISBN": 9783161484100,
+  "title": "Patata frita: THE BOOK",
+  "author": "Hierroso",
+  "edition": 1,
+  "publisher": "Anarco Cuniadismo Mediterraneo"
+}
+
+# Get a book
+GET http://:host::port/api/books/9783161484100
+:common_headers
+
+# Get all books
+GET http://:host::port/api/books
+:common_headers
+
+# Get books limit 2
+GET http://:host::port/api/books?limit=2
+:common_headers
+
+# Get books limit 2 second page
+GET http://:host::port/api/books?limit=2&cursor=g3QAAAABZAALaW5zZXJ0ZWRfYXR0AAAACWQACl9fc3RydWN0X19kABRFbGl4aXIuTmFpdmVEYXRlVGltZWQACGNhbGVuZGFyZAATRWxpeGlyLkNhbGVuZGFyLklTT2QAA2RheWEBZAAEaG91cmERZAALbWljcm9zZWNvbmRoAmEAYQBkAAZtaW51dGVhL2QABW1vbnRoYQpkAAZzZWNvbmRhHGQABHllYXJiAAAH5A==
+:common_headers
+
+# Get books limit 2
+GET http://:host::port/api/books?title=meh
+:common_headers

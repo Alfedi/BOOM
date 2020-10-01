@@ -40,7 +40,9 @@ defmodule Boom.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:credo, "~> 1.5.0-rc.2", only: [:dev, :test], runtime: false},
+      {:paginator, "~> 1.0.1"}
     ]
   end
 

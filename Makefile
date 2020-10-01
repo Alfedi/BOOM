@@ -13,3 +13,6 @@ install: deps
 
 start:
 	mix phx.server
+
+iex: compile
+	iex -S mix phx.server
