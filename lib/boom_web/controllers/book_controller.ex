@@ -36,40 +36,23 @@ defmodule BoomWeb.BookController do
 
   # Need a better way to guess if it's a ISBN or a title
   def get_book(conn, %{"id" => id}) do
-    # ISBN
-    case String.match?(Kernel.to_string(id), ~r/^(97(8|9))?\d{9}(\d|X)$/) do
-      true ->
-        case Book.get_book(String.to_integer(id)) do
-          {:ok, book} ->
-            conn
-            |> render(BookView, "book.json", %{book: book})
+    case Book.get_book(String.to_integer(id)) do
+      {:ok, book} ->
+        conn
+        |> render(BookView, "book.json", %{book: book})
 
-          {:error, {_, err_msg}} ->
-            conn
-            |> put_status(404)
-            |> render(ErrorView, "404.json", %{err_msg: err_msg})
-        end
-
-      # title
-      false ->
-        case Book.get_book(Kernel.to_string(id)) do
-          {:ok, book_list} ->
-            conn
-            |> render(BooksView, "books.json", %{book_list: book_list})
-
-          {:error, {_, err_msg}} ->
-            conn
-            |> put_status(404)
-            |> render(ErrorView, "404.json", %{err_msg: err_msg})
-        end
+      {:error, {_, err_msg}} ->
+        conn
+        |> put_status(404)
+        |> render(ErrorView, "404.json", %{err_msg: err_msg})
     end
   end
 
   def get_books(conn, params) do
-    Logger.debug("params: #{inspect(params)}")
+    filters = parse_filters(params)
     limit = parse_limit(params["limit"])
 
-    case Book.get_books(params["cursor"], limit) do
+    case Book.get_books(params["cursor"], filters, limit) do
       {:ok, book_list, cursors} ->
         conn |> render(BooksView, "books.json", %{book_list: book_list, cursors: cursors})
 
@@ -79,6 +62,11 @@ defmodule BoomWeb.BookController do
   end
 
   # Utils
+  defp parse_filters(params),
+    do:
+      Map.take(params, ["title"])
+      |> Enum.reduce(%{}, fn {k, v}, acc -> Map.put(acc, String.to_atom(k), v) end)
+
   defp parse_limit(nil), do: nil
 
   defp parse_limit(limit) do

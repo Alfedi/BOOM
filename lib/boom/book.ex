@@ -40,8 +40,16 @@ defmodule Boom.Book do
     {:ok, Boom.Repo.all(query)}
   end
 
-  def get_books(cursor, limit \\ 2) do
-    query = from(b in Boom.Models.Books, order_by: b.inserted_at)
+  def get_books(cursor, filters, limit \\ 2) do
+    base_query = from(Boom.Models.Books, as: :book, order_by: :inserted_at)
+
+    query =
+      Enum.reduce(filters, base_query, fn {k, v}, query ->
+        where(query, [book: book], ilike(field(book, ^k), ^"%#{v}%"))
+      end)
+
+    require Logger
+    Logger.debug("query: #{inspect(query)}")
 
     %{entries: entries, metadata: metadata} =
       Boom.Repo.paginate(query, after: cursor, cursor_fields: [:inserted_at], limit: limit)

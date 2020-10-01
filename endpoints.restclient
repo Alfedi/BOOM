@@ -29,3 +29,7 @@ GET http://:host::port/api/books?limit=2
 # Get books limit 2 second page
 GET http://:host::port/api/books?limit=2&cursor=g3QAAAABZAALaW5zZXJ0ZWRfYXR0AAAACWQACl9fc3RydWN0X19kABRFbGl4aXIuTmFpdmVEYXRlVGltZWQACGNhbGVuZGFyZAATRWxpeGlyLkNhbGVuZGFyLklTT2QAA2RheWEBZAAEaG91cmERZAALbWljcm9zZWNvbmRoAmEAYQBkAAZtaW51dGVhL2QABW1vbnRoYQpkAAZzZWNvbmRhHGQABHllYXJiAAAH5A==
 :common_headers
+
+# Get books limit 2
+GET http://:host::port/api/books?title=meh
+:common_headers
