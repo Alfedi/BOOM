@@ -40,7 +40,7 @@ defmodule Boom.Book do
     {:ok, Boom.Repo.all(query)}
   end
 
-  def get_books(cursor, filters, limit \\ 2) do
+  def get_books(cursor, filters, limit \\ 50) do
     base_query = from(Boom.Models.Books, as: :book, order_by: :inserted_at)
 
     query =
