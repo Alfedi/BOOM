@@ -19,39 +19,34 @@ defmodule Boom.Book do
     end
   end
 
-  # In order to get a successful search the ISBN must be exact.
-  def get_book(isbn) when is_integer(isbn) do
-    case Books |> Boom.Repo.get_by(ISBN: isbn) do
-      nil ->
-        {:error, {:error_not_found, "Book not found"}}
+  # This huge regex allow us to match ISBN 10 and ISBN 13 with or without minus.
+  def get_book(id) do
+    case String.match?(
+           id,
+           ~r/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/
+         ) do
+      true ->
+        case Books |> Boom.Repo.get_by(ISBN: id |> String.replace("-", "") |> String.upcase()) do
+          nil ->
+            {:error, {:error_not_found, "Book not found"}}
 
-      book ->
-        {:ok, book}
+          book ->
+            {:ok, book}
+        end
+
+      false ->
+        query =
+          from b in Boom.Models.Books,
+            # Simple regex for searching various books
+            where: ilike(b.title, ^"#{id}%")
+
+        stream = Boom.Repo.stream(query)
+
+        # {:ok, [{book1}, {book2}]}
+        case Boom.Repo.transaction(fn -> Enum.to_list(stream) end) do
+          {_, []} -> {:error, {:error_not_found, "No books found"}}
+          {_, list} -> {:ok, list}
+        end
     end
   end
-
-  def get_book(title) when is_binary(title) do
-    query =
-      from b in Boom.Models.Books,
-        # Simple regex for searching various books
-        where: ilike(b.title, ^"#{title}%")
-
-    stream = Boom.Repo.stream(query)
-
-    # {:ok, [{book1}, {book2}]}
-    case Boom.Repo.transaction(fn -> Enum.to_list(stream) end) do
-      {_, []} -> {:error, {:error_not_found, "No matches found"}}
-      {_, list} -> {:ok, list}
-    end
-  end
-
-  # defp get_book_info(title) do
-  #   case Books |> Boom.Repo.get_by(title: title) do
-  #     nil ->
-  #       {:error, {:error_not_found, "Book not found"}}
-
-  #     book ->
-  #       {:ok, book}
-  #   end
-  # end
 end

@@ -2,10 +2,10 @@ defmodule Boom.Models.Books do
   use Ecto.Schema
 
   schema "books" do
-    field :ISBN, :integer
+    field :ISBN, :string
     field :title, :string
     field :author, :string
-    field :edition, :integer
+    field :edition, :string
     field :publisher, :string
     field :is_borrowed, :boolean, default: false
     field :borrowed_by, :string
