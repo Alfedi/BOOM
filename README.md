@@ -4,7 +4,7 @@ BOOM is a simple application to manage your books in a database.
 
 ## How to use
 
-Install `elixir` and `postgresql` like so:  
+Install `elixir` and `postgresql` like so:
 
 ArchLinux based systems:
 ```bash
@@ -33,24 +33,41 @@ In order to start the server you need to run the `make start` command.
 
 ## Endpoints
 
+All the endpoints require the header:
+  - `Content-Type: application/json`
+
 ### Get a book given ISBN or title
 
-GET `http://localhost:4000/api/books/{isbn_or_title}`
+GET `http://localhost:4000/api/books/<isbn>`
 
 ### Add a new book to the database
 
-POST `http://localhost:4000/api/books/add_book`
+POST `http://localhost:4000/api/books`
 
 With the next JSON:
 ```
 {
-	"ISBN": 1234567890,
-	"title": "title",
-	"author": "author",
-	"edition": 1
-	"publisher": "publisher"
+    "ISBN": 1234567890,
+    "title": "title",
+    "author": "author",
+    "edition": 1
+    "publisher": "publisher"
 }
 ```
+
+### Get all books (limit 50 by default)
+
+GET `http://localhost:4000/api/books`
+
+### Get books filtering
+
+GET `http://localhost:4000/api/books?limit=10&title=Sample Title`
+
+Possible query params:
+ - title
+ - author
+ - publisher
+ - edition (pending)
 
 ### Very special thanks
 To [@samgh96](https://github.com/samgh96) for suggesting such an incredible name and not letting me keep the awful one.

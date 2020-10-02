@@ -19,7 +19,7 @@ defmodule Boom.Book do
     end
   end
 
-  # This huge regex allow us to match ISBN 10 and ISBN 13 with or without minus.
+  # This huge regex allow us to match ISBN 10 and ISBN 13 with or without minus and spaces.
   def get_book(id) do
     case String.match?(
            id,
@@ -36,17 +36,26 @@ defmodule Boom.Book do
 
       false ->
         query =
-          from b in Boom.Models.Books,
+          from(b in Boom.Models.Books,
             # Simple regex for searching various books
             where: ilike(b.title, ^"#{id}%")
+          )
 
-        stream = Boom.Repo.stream(query)
-
-        # {:ok, [{book1}, {book2}]}
-        case Boom.Repo.transaction(fn -> Enum.to_list(stream) end) do
-          {_, []} -> {:error, {:error_not_found, "No books found"}}
-          {_, list} -> {:ok, list}
-        end
+        {:ok, Boom.Repo.all(query)}
     end
+  end
+
+  def get_books(cursor, filters, limit \\ 50) do
+    base_query = from(Boom.Models.Books, as: :book, order_by: :inserted_at)
+
+    query =
+      Enum.reduce(filters, base_query, fn {k, v}, query ->
+        where(query, [book: book], ilike(field(book, ^k), ^"%#{v}%"))
+      end)
+
+    %{entries: entries, metadata: metadata} =
+      Boom.Repo.paginate(query, after: cursor, cursor_fields: [:inserted_at], limit: limit)
+
+    {:ok, entries, %{cursor_after: metadata.after, cursor_before: metadata.before}}
   end
 end
