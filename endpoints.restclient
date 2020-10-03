@@ -7,10 +7,10 @@
 POST http://:host::port/api/books
 :common_headers
 {
-  "ISBN": 9783161484100,
+  "ISBN": "9783161484100",
   "title": "Patata frita: THE BOOK",
   "author": "Hierroso",
-  "edition": 1,
+  "edition": "1",
   "publisher": "Anarco Cuniadismo Mediterraneo"
 }
 

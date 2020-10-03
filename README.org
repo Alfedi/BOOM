@@ -1,0 +1,73 @@
+* BOOM
+
+BOOM is a simple application to manage your books in a database.
+
+** How to use
+
+Install =elixir= and =postgresql= like so:
+
+ArchLinux based systems:
+
+#+BEGIN_SRC sh
+  sudo pacman -S elixir
+  sudo pacman -S postgresql
+#+END_SRC
+
+Debian based systems:
+
+#+BEGIN_SRC sh
+  wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
+  sudo apt-get update
+  sudo apt-get install esl-erlang
+  sudo apt-get install elixir
+
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+  sudo apt-get update
+  sudo apt-get install postgresql postgresql-contrib
+#+END_SRC
+
+Now that postgresql is installed start it with
+=systemctl start postgresql.service=.
+
+You will also need to install GNU Make.
+
+The first time you need to run =make install= to get everything updated.
+In order to start the server you need to run the =make start= command.
+
+** Endpoints :verb:
+
+*** Get a book given ISBN
+    
+    get http://localhost:4000/api/books/9780123456789
+Content-Type: application/json
+
+*** Get all books (limit 50 by default)
+
+get http://localhost:4000/api/books
+Content-Type: application/json
+
+*** Get books filtering
+
+get http://localhost:4000/api/books?limit=10&title=Sample Title
+Content-Type: application/json
+
+Possible query params: - title - author - publisher - edition
+
+*** Add a new book to the database
+
+post http://localhost:4000/api/books
+Content-Type: application/json
+
+  {
+      "ISBN": "1234567890",
+      "title": "Sample Title",
+      "author": "The person who wrote this",
+      "publisher": "BOOM books",
+      "edition": "1"
+  }
+
+*** Very special thanks
+
+To [@samgh96](https://github.com/samgh96) for suggesting such an
+incredible name and not letting me keep the awful one.

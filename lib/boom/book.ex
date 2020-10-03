@@ -5,7 +5,10 @@ defmodule Boom.Book do
 
   def add_book(isbn, title, author, publisher, edition) do
     case get_book(isbn) do
-      {:error, _} ->
+      {:ok, %{ISBN: _}} ->
+        {:error, {:error_already_exist, "The book already exists"}}
+
+      {_, %{}} ->
         Books.insert_book(%Books{
           ISBN: isbn,
           title: title,
@@ -13,31 +16,34 @@ defmodule Boom.Book do
           publisher: publisher,
           edition: edition
         })
-
-      {:ok, _} ->
-        {:error, {:error_already_exist, "The book already exists"}}
     end
   end
 
   # In order to get a successful search the ISBN must be exact.
-  def get_book(isbn) when is_integer(isbn) do
-    case Books |> Boom.Repo.get_by(ISBN: isbn) do
-      nil ->
-        {:error, {:error_not_found, "Book not found"}}
+  def get_book(id) do
+    case String.match?(
+           id,
+           ~r/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/
+         ) do
+      true ->
+        case Books
+             |> Boom.Repo.get_by(ISBN: id |> String.replace(~r/(-| )/, "") |> String.upcase()) do
+          nil ->
+            {:ok, %{}}
 
-      book ->
-        {:ok, book}
+          book ->
+            {:ok, book}
+        end
+
+      false ->
+        query =
+          from(b in Boom.Models.Books,
+            # Simple regex for searching various books
+            where: ilike(b.title, ^"#{id}%")
+          )
+
+        {:ok, Boom.Repo.all(query)}
     end
-  end
-
-  def get_book(title) when is_binary(title) do
-    query =
-      from(b in Boom.Models.Books,
-        # Simple regex for searching various books
-        where: ilike(b.title, ^"#{title}%")
-      )
-
-    {:ok, Boom.Repo.all(query)}
   end
 
   def get_books(cursor, filters, limit \\ 50) do
