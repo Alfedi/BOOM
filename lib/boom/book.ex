@@ -19,7 +19,7 @@ defmodule Boom.Book do
     end
   end
 
-  # In order to get a successful search the ISBN must be exact.
+  # This huge regex allow us to match ISBN 10 and ISBN 13 with or without minus and spaces.
   def get_book(id) do
     case String.match?(
            id,

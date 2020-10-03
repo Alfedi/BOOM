@@ -39,7 +39,7 @@ In order to start the server you need to run the =make start= command.
 
 *** Get a book given ISBN
     
-    get http://localhost:4000/api/books/9780123456789
+get http://localhost:4000/api/books/9780123456789
 Content-Type: application/json
 
 *** Get all books (limit 50 by default)
