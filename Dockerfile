@@ -32,8 +32,8 @@ ENV POSTGRESQL_PORT=$POSTGRESQL_PORT
 RUN mix local.hex --force && mix local.rebar --force
 
 # Copy the contents
-COPY . /app/
+COPY . .
 
 # Run the application
-RUN chmod +x .docker-cmd.sh
+RUN chmod +x ./docker-cmd.sh
 CMD ["./docker-cmd.sh"]
