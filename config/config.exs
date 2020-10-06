@@ -15,7 +15,7 @@ config :boom, Boom.Repo,
   username: System.get_env("POSTGRESQL_USERNAME"),
   password: System.get_env("POSTGRESQL_PASSWORD"),
   database: System.get_env("POSTGRESQL_DATABASE"),
-  port: System.get_env("POSTGRESQL_PORT") || 5430,
+  port: System.get_env("POSTGRESQL_PORT") || 5432,
   pool_size: 10
 
 # Configures the endpoint

@@ -3,11 +3,6 @@ FROM elixir:1.10.4-slim
 
 EXPOSE 4000
 
-## Install the necessary dependencies
-RUN apt-get update -y && \
-    apt-get -y install git make wget lftp gpg unzip && \
-    rm -rf /var/lib/apt/lists/*
-
 ## Create directory and isolate it from the rest of the docker for security reasons
 RUN mkdir /app && \
     groupadd -r boom && \
@@ -32,8 +27,13 @@ ENV POSTGRESQL_PORT=$POSTGRESQL_PORT
 RUN mix local.hex --force && mix local.rebar --force
 
 # Copy the contents
-COPY . /app/
+COPY . .
+
+# Compile
+RUN mix deps.get
+RUN mix deps.compile
+RUN mix compile
 
 # Run the application
-RUN chmod +x .docker-cmd.sh
+RUN chmod +x ./docker-cmd.sh
 CMD ["./docker-cmd.sh"]
