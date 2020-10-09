@@ -10,6 +10,14 @@ use Mix.Config
 config :boom,
   ecto_repos: [Boom.Repo]
 
+config :boom, Boom.Repo,
+  hostname: System.get_env("POSTGRESQL_HOST"),
+  username: System.get_env("POSTGRESQL_USERNAME"),
+  password: System.get_env("POSTGRESQL_PASSWORD"),
+  database: System.get_env("POSTGRESQL_DATABASE"),
+  port: System.get_env("POSTGRESQL_PORT") || 5430,
+  pool_size: 10
+
 # Configures the endpoint
 config :boom, BoomWeb.Endpoint,
   url: [host: "localhost"],

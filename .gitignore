@@ -32,3 +32,6 @@ rename.sh
 
 # Substitute the use of restclient with verb-mode
 endpoints.restclient
+
+# Do not push env variables to production
+.env

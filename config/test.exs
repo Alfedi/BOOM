@@ -2,10 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :boom, Boom.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "boom_test",
-  hostname: "localhost",
+  database: System.get_env("POSTGRESQL_DATABASE") <> "_test",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
