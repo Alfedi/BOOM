@@ -2,43 +2,61 @@
 
 BOOM is a simple application to manage your books in a database.
 
-** How to use
+** Development environment
 
-Install =elixir= and =postgresql= like so:
+- Install elixir/erlang using `asdf`
 
-ArchLinux based systems:
+Information to install asdf can be found [here](https://github.com/asdf-vm/asdf)
 
-#+BEGIN_SRC sh
-  sudo pacman -S elixir
-  sudo pacman -S postgresql
+#+BEGIN_SRC bash
+asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang
+asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir
 #+END_SRC
 
-Debian based systems:
-
-#+BEGIN_SRC sh
-  wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
-  sudo apt-get update
-  sudo apt-get install esl-erlang
-  sudo apt-get install elixir
-
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-  sudo apt-get update
-  sudo apt-get install postgresql postgresql-contrib
+#+BEGIN_SRC bash
+asdf install
 #+END_SRC
 
-Now that postgresql is installed start it with
-=systemctl start postgresql.service=.
+or install Erlang and Elixir on your machine.
 
-You will also need to install GNU Make.
+*** Development environment variables
 
-The first time you need to run =make install= to get everything updated.
-In order to start the server you need to run the =make start= command.
+In the [.env](.env) file environments vars needs to be defined for the local environments. Those need to be loaded when working with this project. To do so, one can manually execute:
+
+#+BEGIN_SRC bash
+source .env
+#+END_SRC
+
+or automate this process using [direnv](https://direnv.net/).
+
+#+BEGIN_SRC bash
+* Install direnv using brew
+$ brew install direnv
+
+* From the project folder
+$ direnv allow
+#+END_SRC
+
+Continue with the instructions [here](https://github.com/direnv/direnv*setup)
+
+*** Development environment database
+
+- Install docker&docker-compose
+
+Information to install docker can be found [here](https://docs.docker.com/get-docker/)
+Information to install docker-compose can be found [here](https://docs.docker.com/compose/install/)
+
+Set up postgresql database:
+
+#+BEGIN_SRC bash
+$ docker network create boom_network
+$ docker-compose up
+#+END_SRC
 
 ** Endpoints :verb:
 
 *** Get a book given ISBN
-    
+
 get http://localhost:4000/api/books/9780123456789
 Content-Type: application/json
 
@@ -66,6 +84,14 @@ Content-Type: application/json
       "publisher": "BOOM books",
       "edition": "1"
   }
+
+** Authors
+
+* **Alfedi** - *initial work* [Alfedi](https://github.com/Alfedi/BOOM)
+* **Ironjanowar** - *continued work* [Ironjanowar](https://github.com/Ironjanowar)
+* **FORGIS98** - *continued work* [FORGIS98](https://github.com/FORGIS98)
+* **kamiyuzu** - *continued work* [kamiyuzu](https://github.com/kamiyuzu)
+* **rockneurotiko** - *continued work* [rockneurotiko](https://github.com/rockneurotiko)
 
 *** Very special thanks
 
