@@ -17,7 +17,7 @@ services:
   boom:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     restart: always
     volumes:
       - .:/app
