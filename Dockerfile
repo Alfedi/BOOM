@@ -1,4 +1,4 @@
-# Production image for pg-card-operations
+# Production image for boom
 FROM elixir:1.10.4-slim
 
 EXPOSE 4000
