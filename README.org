@@ -6,45 +6,44 @@ BOOM is a simple application to manage your books in a database.
 
 - Install elixir/erlang using `asdf`
 
-Information to install asdf can be found [here](https://github.com/asdf-vm/asdf)
+Information to install asdf can be found [[https://github.com/asdf-vm/asdf][here]]
 
 #+BEGIN_SRC bash
-asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang
-asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir
+$ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang
+$ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir
 #+END_SRC
 
 #+BEGIN_SRC bash
-asdf install
+$ asdf install
 #+END_SRC
 
-or install Erlang and Elixir on your machine.
+or [[https://elixir-lang.org/install.html][install Erlang and Elixir on your machine]].
 
 *** Development environment variables
 
-In the [.env](.env) file environments vars needs to be defined for the local environments. Those need to be loaded when working with this project. To do so, one can manually execute:
+In the [[.env.example][.env]] file environments vars needs to be defined for the local environments. Those need to be loaded when working with this project. To do so, one can manually execute:
 
 #+BEGIN_SRC bash
 source .env
 #+END_SRC
 
-or automate this process using [direnv](https://direnv.net/).
+or automate this process using [[https://direnv.net/][direnv]].
 
 #+BEGIN_SRC bash
-* Install direnv using brew
-$ brew install direnv
+* Install direnv using your package manager.
 
 * From the project folder
 $ direnv allow
 #+END_SRC
 
-Continue with the instructions [here](https://github.com/direnv/direnv*setup)
+Continue with the instructions https://github.com/direnv/direnv#getting-started
 
 *** Development environment database
 
 - Install docker&docker-compose
 
-Information to install docker can be found [here](https://docs.docker.com/get-docker/)
-Information to install docker-compose can be found [here](https://docs.docker.com/compose/install/)
+Information to install docker can be found [[https://docs.docker.com/get-docker/][here]]
+Information to install docker-compose can be found [[https://docs.docker.com/compose/install/][here]]
 
 Set up postgresql database:
 
@@ -53,7 +52,7 @@ $ docker network create boom_network
 $ docker-compose up
 #+END_SRC
 
-** Endpoints :verb:
+** Endpoints (verb-friendly) :verb:
 
 *** Get a book given ISBN
 
@@ -87,13 +86,12 @@ Content-Type: application/json
 
 ** Authors
 
-* **Alfedi** - *initial work* [Alfedi](https://github.com/Alfedi/BOOM)
-* **Ironjanowar** - *continued work* [Ironjanowar](https://github.com/Ironjanowar)
-* **FORGIS98** - *continued work* [FORGIS98](https://github.com/FORGIS98)
-* **kamiyuzu** - *continued work* [kamiyuzu](https://github.com/kamiyuzu)
-* **rockneurotiko** - *continued work* [rockneurotiko](https://github.com/rockneurotiko)
+- [[https://github.com/Alfedi/BOOM][Alfedi]] - *initial work*
+- [[https://github.com/Ironjanowar][Ironjanowar]] - *continued work*
+- [[https://github.com/FORGIS98][FORGIS98]]  - *continued work*
+- [[https://github.com/kamiyuzu][kamiyuzu]]  - *continued work*
+- [[https://github.com/rockneurotiko][rockneurotiko]]  - *continued work*
 
 *** Very special thanks
 
-To [@samgh96](https://github.com/samgh96) for suggesting such an
-incredible name and not letting me keep the awful one.
+To [[https://github.com/samgh96][samgh96]] for suggesting such an incredible name and not letting me keep the awful one.
