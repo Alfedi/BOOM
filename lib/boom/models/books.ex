@@ -24,4 +24,11 @@ defmodule Boom.Models.Books do
       _ -> {:error, {:something_went_wrong, "Could not insert book"}}
     end
   end
+
+  def remove_book(isbn) do
+    case Boom.Repo.delete(isbn) do
+      {:ok, _} = res_ok -> res_ok
+      _ -> {:error, {:something_went_wrong, "Could not remove book"}}
+    end
+  end
 end

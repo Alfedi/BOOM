@@ -11,5 +11,6 @@ defmodule BoomWeb.Router do
     post("/", BookController, :add_book)
     get("/", BookController, :get_books)
     get("/:id", BookController, :get_book)
+    delete("/:id", BookController, :remove_book)
   end
 end

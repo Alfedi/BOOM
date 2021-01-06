@@ -57,6 +57,18 @@ defmodule BoomWeb.BookController do
     end
   end
 
+  def remove_book(conn, %{"id" => id}) do
+    case Book.delete_book(id) do
+      {:ok, _} ->
+        send_resp(conn, 201, "")
+
+      {:error, {_, err_msg}} ->
+        conn
+        |> put_status(400)
+        |> render(ErrorView, "400.json", %{err_msg: err_msg})
+    end
+  end
+
   # Utils
   defp parse_filters(params),
     do:

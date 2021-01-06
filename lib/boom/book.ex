@@ -38,7 +38,7 @@ defmodule Boom.Book do
       false ->
         query =
           from(b in Boom.Models.Books,
-            # Simple regex for searching various books
+            # Simple regex for searching multiple books
             where: ilike(b.title, ^"#{id}%")
           )
 
@@ -58,5 +58,12 @@ defmodule Boom.Book do
       Boom.Repo.paginate(query, after: cursor, cursor_fields: [:inserted_at], limit: limit)
 
     {:ok, entries, %{cursor_after: metadata.after, cursor_before: metadata.before}}
+  end
+
+  def delete_book(isbn) do
+    case get_book(isbn) do
+      {:ok, %{ISBN: _} = book} -> Books.remove_book(book)
+      {_, %{}} -> {:error, {:book_no_exist, "The books does not exist"}}
+    end
   end
 end

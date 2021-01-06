@@ -30,9 +30,9 @@ source .env
 or automate this process using [[https://direnv.net/][direnv]].
 
 #+BEGIN_SRC bash
-* Install direnv using your package manager.
+# Install direnv using your package manager.
 
-* From the project folder
+# From the project folder
 $ direnv allow
 #+END_SRC
 
@@ -83,6 +83,11 @@ Content-Type: application/json
       "publisher": "BOOM books",
       "edition": "1"
   }
+
+*** Remove a book from the database
+
+delete http://localhost:4000/api/books/1234567890
+Content-Type: application/json
 
 ** Authors
 
