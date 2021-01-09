@@ -31,4 +31,11 @@ defmodule Boom.Models.Books do
       _ -> {:error, {:something_went_wrong, "Could not remove book"}}
     end
   end
+
+  def edit_book(book) do
+    case Boom.Repo.update(book) do
+      {:ok, _} = res_ok -> res_ok
+      _ -> {:error, {:something_went_wrong, "Could not edit book info"}}
+    end
+  end
 end

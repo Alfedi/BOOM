@@ -69,6 +69,31 @@ defmodule BoomWeb.BookController do
     end
   end
 
+  def edit_book(conn, %{
+        "id" => id,
+        "ISBN" => isbn,
+        "title" => title,
+        "author" => author,
+        "edition" => edition,
+        "publisher" => publisher
+      }) do
+    case Book.get_book(id) do
+      {:ok, %{ISBN: _} = book} ->
+        case Book.edit_book(book, isbn, title, author, edition, publisher) do
+          {:ok, _} ->
+            send_resp(conn, 201, "")
+
+          {:error, {_, err_msg}} ->
+            conn |> put_status(400) |> render(ErrorView, "400.json", %{err_msg: err_msg})
+        end
+
+      {:ok, %{}} ->
+        conn
+        |> put_status(404)
+        |> render(ErrorView, "400.json", %{err_msg: "This book does not exist"})
+    end
+  end
+
   # Utils
   defp parse_filters(params),
     do:

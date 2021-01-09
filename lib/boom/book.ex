@@ -66,4 +66,27 @@ defmodule Boom.Book do
       {_, %{}} -> {:error, {:book_no_exist, "The books does not exist"}}
     end
   end
+
+  def edit_book(book, new_id, new_title, new_author, new_edition, new_publisher) do
+    case String.match?(
+           new_id,
+           ~r/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/
+         ) do
+      true ->
+        new_isbn = new_id |> String.replace(~r/(-| )/, "") |> String.upcase()
+
+        book
+        |> Ecto.Changeset.change(%{
+          ISBN: new_isbn,
+          title: new_title,
+          author: new_author,
+          publisher: new_publisher,
+          edition: new_edition
+        })
+        |> Books.edit_book()
+
+      false ->
+        {:error, {:error_isbn_not_valid, "The new ISBN is not correct"}}
+    end
+  end
 end

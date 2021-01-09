@@ -89,6 +89,19 @@ Content-Type: application/json
 delete http://localhost:4000/api/books/1234567890
 Content-Type: application/json
 
+*** Edit book info
+
+put http://localhost:4000/api/books/1234567890
+Content-Type: application/json
+
+  {
+      "ISBN": "1234567890",
+      "title": "Edited title",
+      "author": "Edited author",
+      "publisher": "Edited Publisher",
+      "edition": "New Edition"
+  }
+
 ** Authors
 
 - [[https://github.com/Alfedi/BOOM][Alfedi]] - *initial work*
